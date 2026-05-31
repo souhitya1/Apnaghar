@@ -89,7 +89,9 @@ io.on("connection", (socket) => {
 server.listen(port,(req,res)=>{
     console.log("app is listening");
 })
-
+app.get("/",(req,res)=>{
+    res.redirect("/apnaghar")
+})
 app.get("/apnaghar",async (req,res)=>{
     let {catagory,name} = req.query;
     let seeapna = [];
