@@ -3,7 +3,7 @@ process.noDeprecation = true;
 
 const express = require("express");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 const path = require("path");
 const mongoose = require("mongoose");
 const Apna = require("./models/apna");
@@ -61,16 +61,24 @@ app.use((req,res,next)=>{
     next();
 })
 
+// === CONTROLLED DATABASE AND SERVER INITIALIZATION ===
 async function main(){
-        await mongoose.connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/apnaghar");
+    await mongoose.connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/apnaghar");
 }
+
 main()
 .then(()=>{
-    console.log("connection succesfull");
+    console.log("Database connection successful");
+    
+    // Only start listening to web requests once MongoDB is fully connected!
+    server.listen(port, "0.0.0.0", () => {
+        console.log(`Server is running securely on port ${port}`);
+    });
 })
 .catch((err)=>{
-   console.log(err);
-})
+    console.error("Database initialization failed:", err);
+});
+
 io.on("connection", (socket) => {
     console.log("a user connected");
    socket.on("joinRoom",(ownerId)=>{
@@ -78,17 +86,15 @@ io.on("connection", (socket) => {
     console.log(`user joined in ${ownerId}`);
    })
     socket.on("sendMessage", (data) => {
-        // data = { sender, receiver, message }
-        io.to(data.ownerId).emit("receiveMessage",data); // broadcast to all
+        io.to(data.ownerId).emit("receiveMessage",data); 
     });
 
     socket.on("disconnect", () => {
         console.log("user disconnected");
     });
 });
-server.listen(port,(req,res)=>{
-    console.log("app is listening");
-})
+
+// === ROUTE HANDLERS ===
 app.get("/",(req,res)=>{
     res.redirect("/apnaghar")
 })
@@ -103,9 +109,9 @@ app.get("/apnaghar",async (req,res)=>{
     else if(catagory){
         seeapna = await Apna.find({catagory});
     }else{
-     seeapna = await Apna.find();
+        seeapna = await Apna.find();
     }
-        seeapna.forEach(a => console.log(a.name, "| image:", a.image));
+    seeapna.forEach(a => console.log(a.name, "| image:", a.image));
 
    res.render("show.ejs",{seeapna});
 })
@@ -115,7 +121,7 @@ app.get("/apnaghar/new",islogged,(req,res)=>{
 app.post("/apnaghar",islogged,upload.single("apna[image]"),async(req,res)=>{
     let addapna = req.body.apna;
     const newuser = new Apna(addapna);
-        console.log("req.file:", req.file); // ✅ add thi
+    console.log("req.file:", req.file); 
     let url = req.file.path;
     let filename= req.file.filename;
     newuser.image = {url,filename};
@@ -202,7 +208,7 @@ app.post('/apnaghar/login',
 app.get("/apnaghar/logout",(req,res,next)=>{
     req.logOut((err)=>{
         if(err){
-            next(err);
+            return next(err);
         }
         req.flash("error","User logged out");
         res.redirect("/apnaghar");
