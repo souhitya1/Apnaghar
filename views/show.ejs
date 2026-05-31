@@ -1,0 +1,135 @@
+<% layout("layout/boilerplate") -%>
+    <div class="container mt-4">
+        <!-- Filters -->
+<div class="container-fluid px-4 py-3 border-bottom shadow-sm bg-white sticky-top">
+  <div class="filters d-flex flex-nowrap overflow-auto gap-4 align-items-center pb-1" style="scrollbar-width: none;">
+    
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Mountains" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-mountain fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Mountains</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Desert" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-sun fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Desert</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Beach" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-umbrella-beach fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Beach</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Coastal" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-water fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Coastal</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Arctic" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-snowflake fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Arctic</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Tropical" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-tree fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Tropical</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Lake" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-water fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Lake</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Countryside" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-tractor fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Countryside</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Islands" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-umbrella-beach fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Islands</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Camping" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-tent fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Camping</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Tiny Homes" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-house-chimney fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Tiny Homes</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Farms" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-wheat-awn fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Farms</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=Skiing" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-person-skiing fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">Skiing</span>
+      </a>
+    </div>
+
+    <div class="filter-item text-center">
+      <a href="/apnaghar?catagory=National Parks" class="text-decoration-none text-secondary d-flex flex-column align-items-center gap-1">
+        <i class="fa-solid fa-tree fs-5"></i>
+        <span style="font-size: 11px; font-weight: 500;">National Parks</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+        <div class="row">
+            <% for(let apna of seeapna){ %>
+                <div class="col-md-4 mb-4 d-flex">
+                    <div class="card-img-top listing-img">
+                        <img src="<%= typeof apna.image === 'string' ? apna.image : apna.image.url %>" class="card-img card-img-top" alt="<%= apna.name %>">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex flex-column">
+                                <%= apna.name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= apna.description %>
+                            </p>
+                            <form method="get" action="/apnaghar/<%= apna._id %>/detail">
+                                <button>See ghar</button>
+                            </form>
+                            <form method="get" action="/apnaghar/<%= apna._id %>/edit">
+                                <button>Edit ghar</button>
+                            </form>
+                            <form method="post" action="/apnaghar/<%= apna._id %>?_method=DELETE">
+                                <button>delete ghar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+        </div>
+    </div>
+
+    </html>

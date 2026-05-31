@@ -1,0 +1,62 @@
+.navbar-brand{
+    color: green !important;
+}
+.card-img{
+    height: 220px;
+    width: 100px;
+    object-fit: cover;
+    border: 1px solid black;
+}
+.listing-img{
+    border: 0.5px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+.detail-img{
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+.detail-name{
+    margin-top: 10px;
+    color: green;
+    font-weight: bolder;
+}
+.detail-box{
+    border: 2px solid green;
+    border-radius: 10px;
+}
+.button-new{
+    background-color: green !important;
+    color: white;
+}
+.reviewbox{
+    margin-top: 20px;
+}
+.reviewcomment{
+    font-weight: bold;
+}
+.reviewpost{
+    border: 1px solid black;
+    border-radius: 10px;
+}
+ .filter-item a:hover i,
+  .filter-item a:hover span {
+    color: #000 !important;
+  }
+
+  .filter-item a.active i,
+  .filter-item a.active span {
+    color: #000 !important;
+    border-bottom: 2px solid #000;
+    padding-bottom: 2px;
+  }
+
+  /* Hide scrollbar but keep scroll */
+  .overflow-auto::-webkit-scrollbar {
+    display: none;
+  }
+  .filters{
+    display: flex;
+    justify-content: space-evenly;
+  }

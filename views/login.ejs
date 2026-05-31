@@ -1,0 +1,18 @@
+<% layout("layout/boilerplate") -%>
+
+<form method="post" action="/apnaghar/login" class="needs-validation" novalidate>
+   <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Email</label>
+            <input placeholder="Enter email" name="email" type="text" class="form-control"
+                id="exampleInputPassword1" required></input>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input placeholder="Enter password" name="password" type="password" class="form-control"
+                id="exampleInputPassword1" required></input>
+        </div>
+        <br>
+        <button type="submit" class=" button-new btn btn-primary">Submit</button>
+</form>
+<script src="/js/validation.js"></script>
+</html>

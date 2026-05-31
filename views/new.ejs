@@ -1,0 +1,55 @@
+<% layout("layout/boilerplate") -%>
+
+
+    <form method="post" action="/apnaghar" class="needs-validation" novalidate enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input placeholder="Enter name" name="apna[name]" type="text" class="form-control"
+                aria-describedby="emailHelp" id="exampleInputEmail1" required></input>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Image URL</label>
+            <input placeholder="Enter image link" name="apna[image]" type="file" class="form-control" required></input>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Price</label>
+            <input placeholder="Enter price" name="apna[price]" type="number" class="form-control"
+                id="exampleInputPassword1" required></input>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label reviewcomment">Description</label>
+            <input placeholder="Enter description" name="apna[description]" type="text" class="form-control"
+                required></input>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Place</label>
+            <input placeholder="Enter place" name="apna[place]" type="text" class="form-control" required></input>
+        </div>
+        <div class="form-group mb-3">
+            <label for="landscape">Choose a landscape:</label>
+            <select id="landscape" name="apna[catagory]" required>
+                <option value="Desert">Desert</option>
+                <option value="Mountains">Mountain</option>
+                <option value="Beach">Beach</option>
+                <option value="Coastal">Coastal</option>
+                <option value="Arctic">Arctic</option>
+                <option value="Tropical">Tropical</option>
+                <option value="Lake">Lake</option>
+                <option value="Countryside">Countryside</option>
+                <option value="Islands">Islands</option>
+                <option value="Camping">Camping</option>
+                <option value="Tiny Homes">Tiny Homes</option>
+                <option value="Farms">Farms</option>
+                <option value="Skiing">Skiing</option>
+                <option value="National Parks">National Parks</option>
+            </select>
+        </div>
+        <button type="submit" class=" button-new btn btn-primary">Submit</button>
+
+    </form>
+    <script src="/js/validation.js"></script>
+
+    </html>

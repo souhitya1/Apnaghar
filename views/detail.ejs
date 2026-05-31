@@ -1,0 +1,180 @@
+<% layout("layout/boilerplate") %>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .detail-page { font-family: 'DM Sans', sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Hero Image */
+  .hero-img-wrap { position: relative; width: 100%; height: 480px; border-radius: 20px; overflow: hidden; margin-bottom: 2rem; }
+  .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-badge { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 500; color: #333; }
+
+  /* Info Section */
+  .info-grid { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; margin-bottom: 2.5rem; }
+  
+  .owner-line { font-size: 13px; color: #888; font-weight: 400; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .listing-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; color: #654321; line-height: 1.2; margin-bottom: 1rem; }
+  .meta-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .meta-tag { display: flex; align-items: center; gap: 6px; background: #f5f5f0; padding: 6px 14px; border-radius: 50px; font-size: 13px; color: #444; }
+  .meta-tag i { color: #888; }
+  .description { font-size: 15px; color: #555; line-height: 1.8; }
+
+  /* Price Card */
+  .price-card { background: #fff; border: 1px solid #e8e8e0; border-radius: 16px; padding: 1.5rem; position: sticky; top: 1rem; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  .price-amount { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: #1a1a1a; }
+  .price-label { font-size: 13px; color: #888; margin-bottom: 1rem; }
+  .price-divider { border: none; border-top: 1px solid #eee; margin: 1rem 0; }
+  .price-detail-row { display: flex; justify-content: space-between; font-size: 14px; color: #666; margin-bottom: 8px; }
+
+  /* Divider */
+  .section-divider { border: none; border-top: 1px solid #eee; margin: 2rem 0; }
+
+  /* Review Form */
+  .review-section { margin-bottom: 2.5rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1.2rem; }
+  .review-form textarea { width: 100%; padding: 14px 16px; border: 1px solid #e0e0d8; border-radius: 12px; font-size: 14px; font-family: 'DM Sans', sans-serif; resize: vertical; min-height: 110px; color: #333; outline: none; transition: border 0.2s; }
+  .review-form textarea:focus { border-color: #aaa; }
+  .rating-wrap { margin: 1rem 0; }
+  .rating-label { font-size: 13px; color: #888; margin-bottom: 6px; display: block; }
+  .rating-stars { display: flex; gap: 6px; }
+  .rating-stars input[type="range"] { width: 100%; accent-color: #1a1a1a; }
+  .rating-display { font-size: 13px; color: #555; margin-top: 4px; }
+  .btn-submit { background: #1a1a1a; color: #fff; border: none; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+  .btn-submit:hover { background: #333; }
+
+  /* Reviews List */
+  .reviews-list { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2rem; }
+  .review-card { background: #fafaf8; border: 1px solid #eee; border-radius: 14px; padding: 1.2rem 1.4rem; }
+  .review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .review-avatar { width: 36px; height: 36px; border-radius: 50%; background: #1a1a1a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+  .review-author { font-size: 14px; font-weight: 500; color: #222; }
+  .review-stars { margin-left: auto; display: flex; gap: 2px; }
+  .star { color: #f5a623; font-size: 13px; }
+  .star.empty { color: #ddd; }
+  .review-comment { font-size: 14px; color: #555; line-height: 1.7; }
+
+  /* Map */
+  .map-wrap { border-radius: 16px; overflow: hidden; margin-top: 2rem; }
+
+  @media (max-width: 700px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .price-card { position: static; }
+    .hero-img-wrap { height: 280px; }
+    .listing-title { font-size: 1.6rem; }
+  }
+</style>
+
+<div class="detail-page">
+
+  <!-- Hero Image -->
+  <div class="hero-img-wrap">
+    <img src="<%= showapna.image.url %>" alt="<%= showapna.name %>">
+    <span class="hero-badge">🏠 <%= showapna.catagory %></span>
+  </div>
+
+  <!-- Info + Price -->
+  <div class="info-grid">
+    <div class="info-left">
+      <p class="owner-line">Hosted by <%= showapna.owner ? showapna.owner.username : "Unknown" %></p>
+      <h1 class="listing-title"><%= showapna.name %></h1>
+      <div class="meta-tags">
+        <span class="meta-tag"><i class="fa-solid fa-location-dot"></i> <%= showapna.place %></span>
+        <span class="meta-tag"><i class="fa-solid fa-tag"></i> <%= showapna.catagory %></span>
+      </div>
+      <p class="description"><%= showapna.description %></p>
+    </div>
+
+    <div class="price-card">
+      <div class="price-amount">₹<%= showapna.price %></div>
+      <div class="price-label">per night</div>
+      <hr class="price-divider">
+      <div class="price-detail-row"><span>Category</span><span><%= showapna.catagory %></span></div>
+      <div class="price-detail-row"><span>Location</span><span><%= showapna.place %></span></div>
+      <div class="price-detail-row"><span>Host</span><span><%= showapna.owner ? showapna.owner.username : "—" %></span></div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- Review Form -->
+  <div class="review-section">
+    <h2 class="section-title">Leave a Review</h2>
+    <form method="post" action="/apnaghar/<%= showapna._id %>/review" class="review-form">
+      <textarea name="review[Comments]" placeholder="Share your experience..."></textarea>
+      <div class="rating-wrap">
+        <span class="rating-label">Rating</span>
+        <input type="range" class="form-range" id="range1" min="1" max="5" step="1" value="3" name="review[rating]"
+          oninput="document.getElementById('ratingVal').textContent = this.value + ' / 5'">
+        <div class="rating-display" id="ratingVal">3 / 5</div>
+      </div>
+      <button type="submit" class="btn-submit">Submit Review</button>
+    </form>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- Reviews List -->
+  <% if(showapna.reviews.length > 0){ %>
+  <div class="review-section">
+    <h2 class="section-title">Guest Reviews (<%= showapna.reviews.length %>)</h2>
+    <div class="reviews-list">
+      <% for(let review of showapna.reviews){ %>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">
+              <%= (review.author && review.author.username) ? review.author.username[0].toUpperCase() : "A" %>
+            </div>
+            <span class="review-author"><%= review.author ? review.author.username : "Anonymous" %></span>
+            <div class="review-stars">
+              <% for(let i=1; i<=5; i++){ %>
+                <span class="star <%= i <= review.rating ? '' : 'empty' %>">★</span>
+              <% } %>
+            </div>
+          </div>
+          <p class="review-comment"><%= review.Comments %></p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- Map -->
+  <h2 class="section-title">Location</h2>
+  <div class="map-wrap">
+    <div id="map" style="width:100%; height:420px;"></div>
+  </div>
+  <br>
+  <%if(currentUser){%>
+   <div>
+    <form action="/apnaghar/messages/<%= showapna.owner._id %>">
+      <button class="button-new btn btn-primary">Message to owner</button>
+    </form>
+   </div>
+   <br>
+  <%}%>
+  <%if(currentUser){%>
+    <div class="inbox-btn">
+      <form action="/apnaghar/inbox">
+        <button class="button-new btn btn-primary">
+          <i class="fa-solid fa-inbox"></i>
+          <tr></tr>
+          Check new Inbox messages</button>
+      </form>
+    </div>
+  <%}%>
+</div>
+
+<script>
+  window.onload = async function() {
+    let maptoken = "<%= mapapi %>";
+    let place = "<%= showapna.place %>";
+    let response = await fetch(`https://api.tomtom.com/search/2/geocode/${encodeURIComponent(place)}.json?key=${maptoken}`);
+    let data = await response.json();
+    let { lat, lon } = data.results[0].position;
+    let map = tt.map({ key: maptoken, container: "map", center: [lon, lat], zoom: 12 });
+    new tt.Marker().setLngLat([lon, lat]).addTo(map);
+  };
+</script>
